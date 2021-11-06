@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { useTranslation } from 'react-i18next'
@@ -20,3 +20,13 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export const getStaticProps: GetStaticProps = async (props: any) => {
+  return {
+    props: {
+      ...(await loadTranslations(ni18nConfig, props.locale, [
+        'translation'
+      ]))
+    },
+  }
+}
