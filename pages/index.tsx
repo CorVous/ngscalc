@@ -20,13 +20,3 @@ const Home: NextPage = () => {
 }
 
 export default Home
-
-export const getStaticProps = async (props: any) => {
-  return {
-    props: {
-      ...(await loadTranslations(ni18nConfig, props.locale, [
-        'default'
-      ]))
-    },
-  }
-}
