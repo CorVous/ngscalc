@@ -1,3 +1,5 @@
+import React from "react";
+
 const BASE_CRITICAL_DAMAGE : number = 1.2;
 const BASE_CRITICAL_CHANCE : number = 0.05;
 
@@ -22,10 +24,10 @@ const DamageCalculation = (props: DamageCalculationProps) => {
   return (
     <div className="d-calc">
       <h1>Damage Calculation</h1>
-      <div data-testid="minimum-damage">{Math.round(minimumDamage)}</div>
-      <div data-testid="maximum-damage">{Math.round(maximumDamage)}</div>
-      <div data-testid="critical-damage">{Math.round(criticalDamage)}</div>
-      <div data-testid="average-damage">{Math.round(averageDamage * 10000) / 10000}</div>
+      <div data-testid="minimum-damage">Minimum Damage: {Math.round(minimumDamage)}</div>
+      <div data-testid="maximum-damage">Maximum Damage: {Math.round(maximumDamage)}</div>
+      <div data-testid="critical-damage">Critical Damage: {Math.round(criticalDamage)}</div>
+      <div data-testid="average-damage">Average Damage: {Math.round(averageDamage * 10000) / 10000}</div>
     </div>
   )
 }

@@ -23,16 +23,16 @@ describe("Calculation component", () => {
 
     render(<DamageCalculation {...mockData} />)
 
-    const minimumDamageElement = screen.getByTestId("minimum-damage")
+    const minimumDamageElement = screen.getByText(/minimum damage:/i)
     expect(minimumDamageElement).toHaveTextContent(finalMinimumDamage)
 
-    const maximumDamageElement = screen.getByTestId("maximum-damage")
+    const maximumDamageElement =  screen.getByText(/maximum damage:/i)
     expect(maximumDamageElement).toHaveTextContent(finalMaximumDamage)
 
-    const criticalDamageElement = screen.getByTestId("critical-damage")
+    const criticalDamageElement =  screen.getByText(/critical damage:/i)
     expect(criticalDamageElement).toHaveTextContent(finalCriticalDamage)
 
-    const averageDamageElement = screen.getByTestId("average-damage")
+    const averageDamageElement =  screen.getByText(/average damage:/i)
     expect(averageDamageElement).toHaveTextContent(finalAverageDamage)
   })
 
@@ -54,16 +54,16 @@ describe("Calculation component", () => {
 
     render(<DamageCalculation {...mockData} />)
 
-    const minimumDamageElement = screen.getByTestId("minimum-damage")
+    const minimumDamageElement = screen.getByText(/minimum damage:/i)
     expect(minimumDamageElement).toHaveTextContent(finalMinimumDamage)
 
-    const maximumDamageElement = screen.getByTestId("maximum-damage")
+    const maximumDamageElement =  screen.getByText(/maximum damage:/i)
     expect(maximumDamageElement).toHaveTextContent(finalMaximumDamage)
 
-    const criticalDamageElement = screen.getByTestId("critical-damage")
+    const criticalDamageElement =  screen.getByText(/critical damage:/i)
     expect(criticalDamageElement).toHaveTextContent(finalCriticalDamage)
 
-    const averageDamageElement = screen.getByTestId("average-damage")
+    const averageDamageElement =  screen.getByText(/average damage:/i)
     expect(averageDamageElement).toHaveTextContent(finalAverageDamage)
   })
 
@@ -86,16 +86,16 @@ describe("Calculation component", () => {
 
     render(<DamageCalculation {...mockData} />)
 
-    const minimumDamageElement = screen.getByTestId("minimum-damage")
+    const minimumDamageElement = screen.getByText(/minimum damage:/i)
     expect(minimumDamageElement).toHaveTextContent(finalMinimumDamage)
 
-    const maximumDamageElement = screen.getByTestId("maximum-damage")
+    const maximumDamageElement =  screen.getByText(/maximum damage:/i)
     expect(maximumDamageElement).toHaveTextContent(finalMaximumDamage)
 
-    const criticalDamageElement = screen.getByTestId("critical-damage")
+    const criticalDamageElement =  screen.getByText(/critical damage:/i)
     expect(criticalDamageElement).toHaveTextContent(finalCriticalDamage)
 
-    const averageDamageElement = screen.getByTestId("average-damage")
+    const averageDamageElement =  screen.getByText(/average damage:/i)
     expect(averageDamageElement).toHaveTextContent(finalAverageDamage)
   })
 
@@ -118,16 +118,16 @@ describe("Calculation component", () => {
 
     render(<DamageCalculation {...mockData} />)
 
-    const minimumDamageElement = screen.getByTestId("minimum-damage")
+    const minimumDamageElement = screen.getByText(/minimum damage:/i)
     expect(minimumDamageElement).toHaveTextContent(finalMinimumDamage)
 
-    const maximumDamageElement = screen.getByTestId("maximum-damage")
+    const maximumDamageElement =  screen.getByText(/maximum damage:/i)
     expect(maximumDamageElement).toHaveTextContent(finalMaximumDamage)
 
-    const criticalDamageElement = screen.getByTestId("critical-damage")
+    const criticalDamageElement =  screen.getByText(/critical damage:/i)
     expect(criticalDamageElement).toHaveTextContent(finalCriticalDamage)
 
-    const averageDamageElement = screen.getByTestId("average-damage")
+    const averageDamageElement =  screen.getByText(/average damage:/i)
     expect(averageDamageElement).toHaveTextContent(finalAverageDamage)
   })
 })
