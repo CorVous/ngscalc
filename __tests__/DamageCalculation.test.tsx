@@ -23,16 +23,16 @@ describe("Calculation component", () => {
 
     render(<DamageCalculation {...mockData} />)
 
-    const minimumDamageElement = screen.getByText(/minimum damage:/i)
+    const minimumDamageElement = screen.getByText(/minimum damage/i)
     expect(minimumDamageElement).toHaveTextContent(finalMinimumDamage)
 
-    const maximumDamageElement =  screen.getByText(/maximum damage:/i)
+    const maximumDamageElement =  screen.getByText(/maximum damage/i)
     expect(maximumDamageElement).toHaveTextContent(finalMaximumDamage)
 
-    const criticalDamageElement =  screen.getByText(/critical damage:/i)
+    const criticalDamageElement =  screen.getByText(/critical damage/i)
     expect(criticalDamageElement).toHaveTextContent(finalCriticalDamage)
 
-    const averageDamageElement =  screen.getByText(/average damage:/i)
+    const averageDamageElement =  screen.getByText(/average damage/i)
     expect(averageDamageElement).toHaveTextContent(finalAverageDamage)
   })
 
@@ -54,16 +54,16 @@ describe("Calculation component", () => {
 
     render(<DamageCalculation {...mockData} />)
 
-    const minimumDamageElement = screen.getByText(/minimum damage:/i)
+    const minimumDamageElement = screen.getByText(/minimum damage:/i).closest("div")
     expect(minimumDamageElement).toHaveTextContent(finalMinimumDamage)
 
-    const maximumDamageElement =  screen.getByText(/maximum damage:/i)
+    const maximumDamageElement =  screen.getByText(/maximum damage:/i).closest("div")
     expect(maximumDamageElement).toHaveTextContent(finalMaximumDamage)
 
-    const criticalDamageElement =  screen.getByText(/critical damage:/i)
+    const criticalDamageElement =  screen.getByText(/critical damage:/i).closest("div")
     expect(criticalDamageElement).toHaveTextContent(finalCriticalDamage)
 
-    const averageDamageElement =  screen.getByText(/average damage:/i)
+    const averageDamageElement =  screen.getByText(/average damage:/i).closest("div")
     expect(averageDamageElement).toHaveTextContent(finalAverageDamage)
   })
 
@@ -86,16 +86,16 @@ describe("Calculation component", () => {
 
     render(<DamageCalculation {...mockData} />)
 
-    const minimumDamageElement = screen.getByText(/minimum damage:/i)
+    const minimumDamageElement = screen.getByText(/minimum damage:/i).closest("div")
     expect(minimumDamageElement).toHaveTextContent(finalMinimumDamage)
 
-    const maximumDamageElement =  screen.getByText(/maximum damage:/i)
+    const maximumDamageElement =  screen.getByText(/maximum damage:/i).closest("div")
     expect(maximumDamageElement).toHaveTextContent(finalMaximumDamage)
 
-    const criticalDamageElement =  screen.getByText(/critical damage:/i)
+    const criticalDamageElement =  screen.getByText(/critical damage:/i).closest("div")
     expect(criticalDamageElement).toHaveTextContent(finalCriticalDamage)
 
-    const averageDamageElement =  screen.getByText(/average damage:/i)
+    const averageDamageElement =  screen.getByText(/average damage:/i).closest("div")
     expect(averageDamageElement).toHaveTextContent(finalAverageDamage)
   })
 
@@ -118,16 +118,16 @@ describe("Calculation component", () => {
 
     render(<DamageCalculation {...mockData} />)
 
-    const minimumDamageElement = screen.getByText(/minimum damage:/i)
+    const minimumDamageElement = screen.getByText(/minimum damage:/i).closest("div")
     expect(minimumDamageElement).toHaveTextContent(finalMinimumDamage)
 
-    const maximumDamageElement =  screen.getByText(/maximum damage:/i)
+    const maximumDamageElement =  screen.getByText(/maximum damage:/i).closest("div")
     expect(maximumDamageElement).toHaveTextContent(finalMaximumDamage)
 
-    const criticalDamageElement =  screen.getByText(/critical damage:/i)
+    const criticalDamageElement =  screen.getByText(/critical damage:/i).closest("div")
     expect(criticalDamageElement).toHaveTextContent(finalCriticalDamage)
 
-    const averageDamageElement =  screen.getByText(/average damage:/i)
+    const averageDamageElement =  screen.getByText(/average damage:/i).closest("div")
     expect(averageDamageElement).toHaveTextContent(finalAverageDamage)
   })
 })
