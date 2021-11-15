@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import DamageCalculation from '../components/DamageCalculation'
+import DamageCalculation from '../src/components/DamageCalculation'
 
 describe("Calculation component", () => {
 
