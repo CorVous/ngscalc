@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import NGSClassDisplay, { NGSClass } from '../src/components/NGSClassDisplay'
+import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import NGSClassDisplay, { NGSClass } from '../src/components/NGSClassDisplay'
 
 describe("Component for displaying and selecting class properties", () => {
 
@@ -67,7 +67,7 @@ describe("Component for displaying and selecting class properties", () => {
   })
 
   it("Should be rendered", () => {
-    expect(screen.getByText(/Class/i, {exact: true})).toBeInTheDocument()
+    expect(screen.getByText(/class/i, {exact: true})).toBeInTheDocument()
   })
 
   it("Should be able to set the class", () => {
@@ -125,5 +125,5 @@ describe("Component for displaying and selecting class properties", () => {
     // Defense should be updated
     expect(screen.getByText(/299/i)).toBeInTheDocument()
 
-  })  
+  })
 })

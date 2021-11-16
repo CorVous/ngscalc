@@ -7,6 +7,7 @@ import { loadTranslations } from 'ni18n'
 import { gql } from "@apollo/client";
 import client from "../../apollo-client";
 import NGSClassDisplay, { NGSClass } from '../components/NGSClassDisplay'
+import WeaponDisplay from '../components/WeaponDisplay'
 
 export const getStaticProps: GetStaticProps = async (props: any) => {
 
@@ -54,6 +55,7 @@ const Home: NextPage = (props: any) => {
         {t('title')}
       </h1>
       <NGSClassDisplay classes={props.classes} />
+      <WeaponDisplay />
     </div>
   )
 }
