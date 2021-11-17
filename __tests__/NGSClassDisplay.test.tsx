@@ -1,69 +1,84 @@
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import NGSClassDisplay, { NGSClass } from '../src/components/NGSClassDisplay'
+import NGSClassDisplay from '../src/components/NGSClassDisplay'
+import { NGSClass } from '../src/helpers/HelperTypes'
+
+let classMocks: NGSClass[] =  [
+  {
+    "id": "8",
+    "name": "Ranger",
+    "stats": [
+      {
+        "level": 1,
+        "hp": 240,
+        "attack": 448,
+        "defense": 300,
+      },
+      {
+        "level": 2,
+        "hp": 242,
+        "attack": 457,
+        "defense": 305,
+      }
+    ],
+    "iname": {
+      "ja": "レンジャー"
+    }
+  },
+  {
+    "id": "13",
+    "name": "Bouncer",
+    "stats": [
+      {
+        "level": 1,
+        "hp": 275,
+        "attack": 453,
+        "defense": 299,
+      },
+      {
+        "level": 2,
+        "hp": 278,
+        "attack": 462,
+        "defense": 304,
+      },
+    ],
+    "iname": {
+      "ja": "バウンサー"
+    }
+  },
+  {
+    "id": "4",
+    "name": "Hunter",
+    "stats": [
+      {
+        "level": 1,
+        "hp": 300,
+        "attack": 450,
+        "defense": 304,
+      },
+      {
+        "level": 2,
+        "hp": 303,
+        "attack": 459,
+        "defense": 309,
+      },
+    ],
+    "iname": {
+      "ja": "ハンター"
+    }
+  }
+]
+
+function mockTranslation(key: string) {
+  return key
+}
+
+function mockSetClass(nClass: NGSClass, level: number) {}
 
 describe("Component for displaying and selecting class properties", () => {
-
-  let classMocks: NGSClass[] =  [
-    {
-      "id": "8",
-      "name": "Ranger",
-      "stats": [
-        {
-          "level": 1,
-          "hp": 240,
-          "attack": 448,
-          "defense": 300,
-        },
-        {
-          "level": 2,
-          "hp": 242,
-          "attack": 457,
-          "defense": 305,
-        }
-      ],
-    },
-    {
-      "id": "13",
-      "name": "Bouncer",
-      "stats": [
-        {
-          "level": 1,
-          "hp": 275,
-          "attack": 453,
-          "defense": 299,
-        },
-        {
-          "level": 2,
-          "hp": 278,
-          "attack": 462,
-          "defense": 304,
-        },
-      ],
-    },
-    {
-      "id": "4",
-      "name": "Hunter",
-      "stats": [
-        {
-          "level": 1,
-          "hp": 300,
-          "attack": 450,
-          "defense": 304,
-        },
-        {
-          "level": 2,
-          "hp": 303,
-          "attack": 459,
-          "defense": 309,
-        },
-      ],
-    }
-  ]
-
   beforeEach(() => {
-      render(<NGSClassDisplay classes={classMocks} />)
+      render(<NGSClassDisplay classes={classMocks} locale="en" t={mockTranslation} setClass={mockSetClass} />)
   })
 
   it("Should be rendered", () => {
@@ -100,11 +115,11 @@ describe("Component for displaying and selecting class properties", () => {
 
     expect(screen.getByLabelText(/level/i)).toHaveValue(2)
     // HP should be updated
-    expect(screen.getByText(/278/i)).toBeInTheDocument()
+    expect(screen.getByText(/278/)).toBeInTheDocument()
     // Attack should be updated
-    expect(screen.getByText(/462/i)).toBeInTheDocument()
+    expect(screen.getByText(/462/)).toBeInTheDocument()
     // Defense should be updated
-    expect(screen.getByText(/304/i)).toBeInTheDocument()
+    expect(screen.getByText(/304/)).toBeInTheDocument()
 
   })
 
@@ -119,11 +134,38 @@ describe("Component for displaying and selecting class properties", () => {
 
     expect(screen.getByLabelText(/level/i)).toHaveValue(1)
     // HP should be updated
-    expect(screen.getByText(/275/i)).toBeInTheDocument()
+    expect(screen.getByText(/275/)).toBeInTheDocument()
     // Attack should be updated
-    expect(screen.getByText(/453/i)).toBeInTheDocument()
+    expect(screen.getByText(/453/)).toBeInTheDocument()
     // Defense should be updated
-    expect(screen.getByText(/299/i)).toBeInTheDocument()
+    expect(screen.getByText(/299/)).toBeInTheDocument()
 
+  })
+})
+
+const testStartingClass = { current: classMocks[0], level: 2 }
+describe("Component starts with Ranger and level 2", () => {
+  beforeEach(() => {
+    render(<NGSClassDisplay locale="en" t={mockTranslation} setClass={mockSetClass} classes={classMocks} startingClass={testStartingClass} />)
+  })
+
+  it("Should render with the correct class and info", () => {
+    expect(screen.getByText(/ranger/i)).toBeInTheDocument()
+    expect(screen.getByText(/242/)).toBeInTheDocument()
+    expect(screen.getByText(/457/)).toBeInTheDocument()
+    expect(screen.getByText(/305/)).toBeInTheDocument()
+  })
+})
+
+describe("Component starts with Ranger and level 2 AND is in japanese", () => {
+  beforeEach(() => {
+    render(<NGSClassDisplay locale="ja" t={mockTranslation} setClass={mockSetClass} classes={classMocks} startingClass={testStartingClass} />)
+  })
+
+  it("Should render with the correct class and info", () => {
+    expect(screen.getByText(/レンジャー/i)).toBeInTheDocument()
+    expect(screen.getByText(/242/)).toBeInTheDocument()
+    expect(screen.getByText(/457/)).toBeInTheDocument()
+    expect(screen.getByText(/305/)).toBeInTheDocument()
   })
 })

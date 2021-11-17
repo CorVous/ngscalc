@@ -1,59 +1,66 @@
+import { TFunction } from "i18next";
 import React, { Component } from "react";
-
-type NGSClassStats = {
-    level: number,
-    hp: number,
-    attack: number,
-    defense: number,
-}
-
-type NGSClass = {
-  id: string,
-  name: string,
-  stats: NGSClassStats[],
-}
+import { NGSClass, NGSClassStats } from "../helpers/HelperTypes"
 
 type NGSClassDisplayProps = {
+  locale: string,
+  t: TFunction,
   classes: NGSClass[],
+  startingClass?: {current?: NGSClass, level?: number | ""},
+  setClass: (nClass: NGSClass, level: number | "") => void,
 }
 
 type NGSClassDisplayState = {
   selectingClass: boolean,
-  currentClass: NGSClass,
+  currentClass?: NGSClass,
   currentLevel: number | "",
-  attack: number,
-  defense: number,
-  hp: number,
 }
 
 class NGSClassDisplay extends Component<NGSClassDisplayProps, NGSClassDisplayState> {
   constructor(props: NGSClassDisplayProps) {
-    super(props);
+    super(props)
     this.state = {
-      currentClass: {id: "", name: "", stats: [{level: 0, hp: 0, attack: 0, defense: 0}]},
+      currentClass: this.props.startingClass && this.props.startingClass.current ? this.props.startingClass.current : undefined,
+      currentLevel: this.props.startingClass && this.props.startingClass.level ? this.props.startingClass.level : 1,
       selectingClass: false,
-      currentLevel: 0,
-      attack: 0,
-      defense: 0,
-      hp: 0,
     }
   }
 
   render() {
+    // Collection of buttons for each class
+    const ngsClassButtons = this.props.classes.map(nClass =>
+      <button key={nClass.id} onClick={() => this.setClass(nClass)}>{nClass.iname[this.props.locale] || nClass.name}</button>
+    )
+
+    // Get class stats by using the currentClass and currentLevel if they are both set
+    let hp: any = this.props.t("invalid")
+    let attack: any = this.props.t("invalid")
+    let defense: any = this.props.t("invalid")
+    if (this.state && this.state.currentClass) {
+      const statQuery: NGSClassStats | undefined = this.state.currentClass.stats.find(x => x.level === this.state.currentLevel)
+      hp = statQuery ? statQuery.hp : this.props.t("invalid")
+      attack = statQuery ? statQuery.attack : this.props.t("invalid")
+      defense = statQuery ? statQuery.defense : this.props.t("invalid")
+    }
+
+    // Set the class name to the current class's name if it exists
+    let currentClassName: any
+    if (this.state.currentClass) {
+      currentClassName = this.state.currentClass.iname[this.props.locale] || this.state.currentClass.name
+    }
+
     return (
       <div className="class-display">
-        <button name="current-class" onClick={() => this.setClassSelect(!this.state.selectingClass)}>{this.state.currentClass.id !== "" ? this.state.currentClass.name : "Class"}</button>
+        <button name="current-class" onClick={() => this.setClassSelect(!this.state.selectingClass)}>{currentClassName ? currentClassName : this.props.t("Class")}</button>
         <div className="class-display-selector">
-          {this.state.selectingClass ? this.props.classes.map(nClass =>
-            <button key={nClass.id} onClick={() => this.setClass(nClass)}>{nClass.name}</button>
-          ) : null}
+          {this.state.selectingClass ? ngsClassButtons : null}
         </div>
-        {this.state.currentClass.id !== "" ?
+        {this.state.currentClass ?
         <div className="class-display-stats">
-          <label htmlFor="class-display-level" aria-labelledby="class-display-level">Level: </label> <input type="number" id="class-display-level" value={this.state.currentLevel} onChange={this.setLevel} />
-          <div>HP: {this.state.hp !== 0 ? this.state.hp : "invalid"}</div>
-          <div>Attack: {this.state.attack ? this.state.attack : "invalid"}</div>
-          <div>Defense: {this.state.defense ? this.state.defense : "invalid"}</div>
+          <label htmlFor="class-display-level" aria-labelledby="class-display-level">{this.props.t("Level")}: </label> <input type="number" id="class-display-level" value={this.state.currentLevel} onChange={this.setLevel} />
+          <div>{this.props.t("HP")}: {hp}</div>
+          <div>{this.props.t("Attack")}: {attack}</div>
+          <div>{this.props.t("Defense")}: {defense}</div>
         </div> 
         : null}
       </div>
@@ -71,11 +78,12 @@ class NGSClassDisplay extends Component<NGSClassDisplayProps, NGSClassDisplaySta
       currentClass: nClass,
       selectingClass: false,
     })
-    this.setStats(nClass, this.state.currentLevel || 1)
+
+    this.props.setClass(nClass, this.state.currentLevel || 1)
   }
 
   setLevel = (e:  React.ChangeEvent<HTMLInputElement>) => {
-    let level = e.target.value
+    let level: string = e.target.value
 
     if (level === "") {
       this.setState({
@@ -92,24 +100,16 @@ class NGSClassDisplay extends Component<NGSClassDisplayProps, NGSClassDisplaySta
         currentLevel: Number(level),
       })
     }
-
-    this.setStats(this.state.currentClass, Number(level))
-  }
-
-  setStats = (nClass: NGSClass, level: number) => {
-    const maxLevel = Math.max.apply(Math, nClass.stats.map(function(o) { return o.level }))
-    level = level > maxLevel ? maxLevel : level
-    const statQuery: NGSClassStats | undefined = nClass.stats.find(x => x.level === level)
-    const currentStats: NGSClassStats = statQuery ? statQuery : {level: 0, hp: 0, attack: 0, defense: 0}
-
-    this.setState({
-      currentLevel: level,
-      attack: currentStats.attack,
-      defense: currentStats.defense,
-      hp: currentStats.hp,
-    })
+    
+    if (this.state.currentClass) {
+      const maxLevel: number = Math.max.apply(Math, this.state.currentClass.stats.map(function(o) { return o.level }))
+      const verifiedLevel: number = Number(level) > maxLevel ? maxLevel : Number(level)
+      this.setState({
+        currentLevel: verifiedLevel,
+      })
+      this.props.setClass(this.state.currentClass, verifiedLevel)
+    }
   }
 }
 
 export default NGSClassDisplay
-export type { NGSClass, NGSClassStats }

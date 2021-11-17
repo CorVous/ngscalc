@@ -1,6 +1,15 @@
+import { TFunction } from "i18next";
 import React, { Component } from "react";
 
-class WeaponDisplay extends Component {
+type WeaponDisplayProps = {
+  locale: string,
+  t: TFunction,
+}
+
+type WeaponDisplayState = {
+}
+
+class WeaponDisplay extends Component<WeaponDisplayProps, WeaponDisplayState> {
   render() {
     return (
       <div>

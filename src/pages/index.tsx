@@ -6,8 +6,7 @@ import { ni18nConfig } from '../../ni18n.config'
 import { loadTranslations } from 'ni18n'
 import { gql } from "@apollo/client";
 import client from "../../apollo-client";
-import NGSClassDisplay, { NGSClass } from '../components/NGSClassDisplay'
-import WeaponDisplay from '../components/WeaponDisplay'
+import DamageSim from '../components/DamageSim'
 
 export const getStaticProps: GetStaticProps = async (props: any) => {
 
@@ -39,7 +38,8 @@ export const getStaticProps: GetStaticProps = async (props: any) => {
         'translation',
       ])),
       // Static GQL Data
-      classes: data.classes
+      apiData: data,
+      locale: props.locale,
     },
   }
 }
@@ -54,11 +54,9 @@ const Home: NextPage = (props: any) => {
       <h1>
         {t('title')}
       </h1>
-      <NGSClassDisplay classes={props.classes} />
-      <WeaponDisplay />
+      <DamageSim apiData={props.apiData} locale={props.locale} t={t} />
     </div>
   )
 }
 
 export default Home
-
