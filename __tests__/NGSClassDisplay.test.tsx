@@ -3,76 +3,8 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import NGSClassDisplay from '../src/components/NGSClassDisplay'
 import { NGSClass } from '../src/helpers/HelperTypes'
-
-let classMocks: NGSClass[] =  [
-  {
-    "id": "8",
-    "name": "Ranger",
-    "stats": [
-      {
-        "level": 1,
-        "hp": 240,
-        "attack": 448,
-        "defense": 300,
-      },
-      {
-        "level": 2,
-        "hp": 242,
-        "attack": 457,
-        "defense": 305,
-      }
-    ],
-    "iname": {
-      "ja": "レンジャー"
-    }
-  },
-  {
-    "id": "13",
-    "name": "Bouncer",
-    "stats": [
-      {
-        "level": 1,
-        "hp": 275,
-        "attack": 453,
-        "defense": 299,
-      },
-      {
-        "level": 2,
-        "hp": 278,
-        "attack": 462,
-        "defense": 304,
-      },
-    ],
-    "iname": {
-      "ja": "バウンサー"
-    }
-  },
-  {
-    "id": "4",
-    "name": "Hunter",
-    "stats": [
-      {
-        "level": 1,
-        "hp": 300,
-        "attack": 450,
-        "defense": 304,
-      },
-      {
-        "level": 2,
-        "hp": 303,
-        "attack": 459,
-        "defense": 309,
-      },
-    ],
-    "iname": {
-      "ja": "ハンター"
-    }
-  }
-]
-
-function mockTranslation(key: string) {
-  return key
-}
+import { classMocks } from '../__mocks__/dataMocks'
+import { mockTranslation } from '../__mocks__/mockTranslation'
 
 function mockSetClass(nClass: NGSClass, level: number) {}
 

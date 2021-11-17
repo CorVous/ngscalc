@@ -13,7 +13,7 @@ export const getStaticProps: GetStaticProps = async (props: any) => {
   // Set GQL query
   const { data } = await client.query({
     query: gql`
-      {
+      query DamageSim {
         classes {
           id
           name
@@ -25,6 +25,141 @@ export const getStaticProps: GetStaticProps = async (props: any) => {
           }
           iname {
             ja
+          }
+          weapon_types {
+            id
+          }
+        }
+
+        weaponTypes {
+          id
+          name
+          iname {
+            ja
+          }
+          classes {
+            id
+          }
+          weapon_series {
+            id
+          }
+        }
+      
+        weapons {
+          id
+          name
+          iname {
+            ja
+          }
+          base_attack
+          attack {
+            level
+            value
+          }
+          min_attack
+          max_attack
+          weapon_potential {
+            name
+            condition {
+              id
+            }
+            potential {
+              level
+              effect {
+                hp
+                melee_potency
+                technique_potency
+                ranged_potency
+                potency_floor
+                pp
+                damage_reduction
+                physical_down_resist
+                poison_resist
+                panic_resist
+                blind_resist
+                shock_resist
+                freeze_resist
+                burn_resist
+                pp_cost_down
+                pp_natural_regen
+                pp_active_regen
+                critical_chance
+                critical_damage
+              }
+              conditional_effect {
+                hp
+                melee_potency
+                technique_potency
+                ranged_potency
+                potency_floor
+                pp
+                damage_reduction
+                physical_down_resist
+                poison_resist
+                panic_resist
+                blind_resist
+                shock_resist
+                freeze_resist
+                burn_resist
+                pp_cost_down
+                pp_natural_regen
+                pp_active_regen
+                critical_chance
+                critical_damage
+              }
+            }
+            description
+            iname {
+              ja
+            }
+            idescription {
+              ja
+            }
+          }
+          weapon_types {
+            id
+          }
+          weapon_rarity_attack_scaling {
+            id
+          }
+        }
+
+        conditions {
+          id
+          name
+          description
+          iname {
+            ja
+          }
+          idescription {
+            ja
+          }
+          condition_categories {
+            id
+          }
+        }
+        
+        conditionCategories {
+          id
+          name
+          description
+          iname {
+            ja
+          }
+          idescription {
+            ja
+          }
+          conditions {
+            id
+          }
+        }
+
+        weaponRarityAttackScalings {
+          id
+          rarity
+          attack {
+            level
+            value
           }
         }
       }

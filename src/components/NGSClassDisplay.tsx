@@ -6,8 +6,8 @@ type NGSClassDisplayProps = {
   locale: string,
   t: TFunction,
   classes: NGSClass[],
-  startingClass?: {current?: NGSClass, level?: number | ""},
-  setClass: (nClass: NGSClass, level: number | "") => void,
+  startingClass?: {current?: NGSClass, level?: number},
+  setClass: (nClass: NGSClass, level: number) => void,
 }
 
 type NGSClassDisplayState = {
@@ -20,8 +20,8 @@ class NGSClassDisplay extends Component<NGSClassDisplayProps, NGSClassDisplaySta
   constructor(props: NGSClassDisplayProps) {
     super(props)
     this.state = {
-      currentClass: this.props.startingClass && this.props.startingClass.current ? this.props.startingClass.current : undefined,
-      currentLevel: this.props.startingClass && this.props.startingClass.level ? this.props.startingClass.level : 1,
+      currentClass: this.props.startingClass?.current,
+      currentLevel: this.props.startingClass?.level || 1,
       selectingClass: false,
     }
   }
@@ -33,21 +33,13 @@ class NGSClassDisplay extends Component<NGSClassDisplayProps, NGSClassDisplaySta
     )
 
     // Get class stats by using the currentClass and currentLevel if they are both set
-    let hp: any = this.props.t("invalid")
-    let attack: any = this.props.t("invalid")
-    let defense: any = this.props.t("invalid")
-    if (this.state && this.state.currentClass) {
-      const statQuery: NGSClassStats | undefined = this.state.currentClass.stats.find(x => x.level === this.state.currentLevel)
-      hp = statQuery ? statQuery.hp : this.props.t("invalid")
-      attack = statQuery ? statQuery.attack : this.props.t("invalid")
-      defense = statQuery ? statQuery.defense : this.props.t("invalid")
-    }
+    const statQuery: NGSClassStats | undefined = this.state.currentClass?.stats.find(x => x.level === this.state.currentLevel)
+    const hp = statQuery ? statQuery.hp : this.props.t("invalid")
+    const attack = statQuery ? statQuery.attack : this.props.t("invalid")
+    const defense = statQuery ? statQuery.defense : this.props.t("invalid")
 
     // Set the class name to the current class's name if it exists
-    let currentClassName: any
-    if (this.state.currentClass) {
-      currentClassName = this.state.currentClass.iname[this.props.locale] || this.state.currentClass.name
-    }
+    let currentClassName = this.state.currentClass?.iname[this.props.locale] || this.state.currentClass?.name
 
     return (
       <div className="class-display">
@@ -83,7 +75,8 @@ class NGSClassDisplay extends Component<NGSClassDisplayProps, NGSClassDisplaySta
   }
 
   setLevel = (e:  React.ChangeEvent<HTMLInputElement>) => {
-    let level: string = e.target.value
+    const level: string = e.target.value
+    let currentLevel: number = Number(level)
 
     if (level === "") {
       this.setState({
@@ -91,19 +84,12 @@ class NGSClassDisplay extends Component<NGSClassDisplayProps, NGSClassDisplaySta
       })
       return
     } else if (Number(level) < 1) {
-      level = "1"
-      this.setState({
-        currentLevel: 1,
-      })
-    } else {
-      this.setState({
-        currentLevel: Number(level),
-      })
+      currentLevel = 1
     }
     
     if (this.state.currentClass) {
       const maxLevel: number = Math.max.apply(Math, this.state.currentClass.stats.map(function(o) { return o.level }))
-      const verifiedLevel: number = Number(level) > maxLevel ? maxLevel : Number(level)
+      const verifiedLevel: number = currentLevel > maxLevel ? maxLevel : currentLevel
       this.setState({
         currentLevel: verifiedLevel,
       })

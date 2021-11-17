@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NGSClassDisplay from "./NGSClassDisplay";
 import { TFunction } from "i18next";
 import WeaponDisplay from "./WeaponDisplay";
-import { NGSClass, Weapon } from "../helpers/HelperTypes";
+import { NGSClass, WeaponSeries } from "../helpers/HelperTypes";
 
 type DamageSimProps = {
   apiData: any;
@@ -13,10 +13,10 @@ type DamageSimProps = {
 type DamageSimState = {
   ngsClass?: {
     current?: NGSClass,
-    level?: number | "",
+    level?: number,
   },
   weapon?: {
-    current?: Weapon,
+    current?: WeaponSeries,
     level?: number,
   },
 }
@@ -33,21 +33,39 @@ class DamageSim extends Component<DamageSimProps, DamageSimState> {
     return (
       <>
         <NGSClassDisplay locale={this.props.locale} t={this.props.t}
+          startingClass={this.state?.ngsClass ? this.state.ngsClass : undefined}
           classes={this.props.apiData.classes}
-          startingClass={this.state && this.state.ngsClass ? this.state.ngsClass : undefined}
           setClass={this.setClass}
         />
-        {this.state && this.state.ngsClass ? 
-          <WeaponDisplay locale={this.props.locale} t={this.props.t} />
+        {this.state?.ngsClass?.current ? 
+          <WeaponDisplay locale={this.props.locale} t={this.props.t}
+            startingWeapon={this.state?.weapon ? this.state.weapon : undefined}
+            currentClass={this.state.ngsClass.current}
+            weapons={this.props.apiData.weapons}
+            weaponTypes={this.props.apiData.weaponTypes}
+            conditions={this.props.apiData.conditions}
+            conditionCategories={this.props.apiData.conditionCategories}
+            weaponRarityAttackScalings={this.props.apiData.weaponRarityAttackScalings}
+            setWeapon={this.setWeapon}
+          />
         : null}
       </>
     )
   }
 
-  setClass = (ngsClass: NGSClass, level: number | "") => {
+  setClass = (ngsClass: NGSClass, level: number) => {
     this.setState({
       ngsClass: {
         current: ngsClass,
+        level: level,
+      }
+    })
+  }
+
+  setWeapon = (weapon: WeaponSeries, level: number) => {
+    this.setState({
+      weapon: {
+        current: weapon,
         level: level,
       }
     })
