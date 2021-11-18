@@ -43,8 +43,6 @@ class DamageSim extends Component<DamageSimProps, DamageSimState> {
             currentClass={this.state.ngsClass.current}
             weapons={this.props.apiData.weapons}
             weaponTypes={this.props.apiData.weaponTypes}
-            conditions={this.props.apiData.conditions}
-            conditionCategories={this.props.apiData.conditionCategories}
             weaponRarityAttackScalings={this.props.apiData.weaponRarityAttackScalings}
             setWeapon={this.setWeapon}
           />

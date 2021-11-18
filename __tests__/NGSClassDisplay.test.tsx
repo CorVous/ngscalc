@@ -46,13 +46,9 @@ describe("Component for displaying and selecting class properties", () => {
     userEvent.keyboard('{selectall}2')
 
     expect(screen.getByLabelText(/level/i)).toHaveValue(2)
-    // HP should be updated
-    expect(screen.getByText(/278/)).toBeInTheDocument()
-    // Attack should be updated
-    expect(screen.getByText(/462/)).toBeInTheDocument()
-    // Defense should be updated
-    expect(screen.getByText(/304/)).toBeInTheDocument()
-
+    expect(screen.getByTestId('class-hp-value')).toHaveTextContent('278')
+    expect(screen.getByTestId('class-attack-value')).toHaveTextContent('462')
+    expect(screen.getByTestId('class-defense-value')).toHaveTextContent('304')
   })
 
   it("Should not be able to set level to 0", async () => {
@@ -65,12 +61,9 @@ describe("Component for displaying and selecting class properties", () => {
     userEvent.keyboard('{selectall}0')
 
     expect(screen.getByLabelText(/level/i)).toHaveValue(1)
-    // HP should be updated
-    expect(screen.getByText(/275/)).toBeInTheDocument()
-    // Attack should be updated
-    expect(screen.getByText(/453/)).toBeInTheDocument()
-    // Defense should be updated
-    expect(screen.getByText(/299/)).toBeInTheDocument()
+    expect(screen.getByTestId('class-hp-value')).toHaveTextContent('275')
+    expect(screen.getByTestId('class-attack-value')).toHaveTextContent('453')
+    expect(screen.getByTestId('class-defense-value')).toHaveTextContent('299')
 
   })
 })
@@ -83,9 +76,9 @@ describe("Component starts with Ranger and level 2", () => {
 
   it("Should render with the correct class and info", () => {
     expect(screen.getByText(/ranger/i)).toBeInTheDocument()
-    expect(screen.getByText(/242/)).toBeInTheDocument()
-    expect(screen.getByText(/457/)).toBeInTheDocument()
-    expect(screen.getByText(/305/)).toBeInTheDocument()
+    expect(screen.getByTestId('class-hp-value')).toHaveTextContent('242')
+    expect(screen.getByTestId('class-attack-value')).toHaveTextContent('457')
+    expect(screen.getByTestId('class-defense-value')).toHaveTextContent('305')
   })
 })
 
@@ -96,8 +89,8 @@ describe("Component starts with Ranger and level 2 AND is in japanese", () => {
 
   it("Should render with the correct class and info", () => {
     expect(screen.getByText(/レンジャー/i)).toBeInTheDocument()
-    expect(screen.getByText(/242/)).toBeInTheDocument()
-    expect(screen.getByText(/457/)).toBeInTheDocument()
-    expect(screen.getByText(/305/)).toBeInTheDocument()
+    expect(screen.getByTestId('class-hp-value')).toHaveTextContent('242')
+    expect(screen.getByTestId('class-attack-value')).toHaveTextContent('457')
+    expect(screen.getByTestId('class-defense-value')).toHaveTextContent('305')
   })
 })

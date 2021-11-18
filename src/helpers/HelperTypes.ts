@@ -17,6 +17,8 @@ export type WeaponType = {
   id: string,
   name: string,
   iname: any,
+  suffix: string,
+  isuffix: any,
   classes: any[], // NGSClass[]
   weapon_series: any[], // WeaponSeries[]
 }

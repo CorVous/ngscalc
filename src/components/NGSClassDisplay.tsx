@@ -50,9 +50,9 @@ class NGSClassDisplay extends Component<NGSClassDisplayProps, NGSClassDisplaySta
         {this.state.currentClass ?
         <div className="class-display-stats">
           <label htmlFor="class-display-level" aria-labelledby="class-display-level">{this.props.t("Level")}: </label> <input type="number" id="class-display-level" value={this.state.currentLevel} onChange={this.setLevel} />
-          <div>{this.props.t("HP")}: {hp}</div>
-          <div>{this.props.t("Attack")}: {attack}</div>
-          <div>{this.props.t("Defense")}: {defense}</div>
+          <div data-testid="class-hp-value">{this.props.t("HP")}: {hp}</div>
+          <div data-testid="class-attack-value">{this.props.t("Attack")}: {attack}</div>
+          <div data-testid="class-defense-value">{this.props.t("Defense")}: {defense}</div>
         </div> 
         : null}
       </div>

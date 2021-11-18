@@ -37,12 +37,17 @@ export const getStaticProps: GetStaticProps = async (props: any) => {
           iname {
             ja
           }
+          suffix
+          isuffix {
+            ja
+          }
           classes {
             id
           }
           weapon_series {
             id
           }
+          
         }
       
         weapons {
