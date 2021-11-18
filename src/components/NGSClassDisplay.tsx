@@ -1,5 +1,6 @@
 import { TFunction } from "i18next";
 import React, { Component } from "react";
+import { getLocalName } from "../helpers/HelperFunctions";
 import { NGSClass, NGSClassStats } from "../helpers/HelperTypes"
 
 type NGSClassDisplayProps = {
@@ -39,7 +40,8 @@ class NGSClassDisplay extends Component<NGSClassDisplayProps, NGSClassDisplaySta
     const defense = statQuery ? statQuery.defense : this.props.t("invalid")
 
     // Set the class name to the current class's name if it exists
-    let currentClassName = this.state.currentClass?.iname[this.props.locale] || this.state.currentClass?.name
+    let currentClassName = getLocalName(this.props.locale, this.state.currentClass?.name, this.state.currentClass?.iname)
+    
 
     return (
       <div className="class-display">

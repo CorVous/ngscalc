@@ -24,9 +24,6 @@ type DamageSimState = {
 class DamageSim extends Component<DamageSimProps, DamageSimState> {
   constructor(props: DamageSimProps) {
     super(props);
-    this.setState({
-
-    })
   }
 
   render() {

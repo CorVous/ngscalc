@@ -352,6 +352,10 @@ export const weaponTypesMock: WeaponType[] = [
     "iname": {
       "ja": "デュアルブレード"
     },
+    "suffix": "Blade",
+    "isuffix": {
+      "ja": "ブレード"
+    },
     "classes": [
       {
         "id": "13"

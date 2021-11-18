@@ -10,6 +10,7 @@ import DamageSim from '../components/DamageSim'
 
 export const getStaticProps: GetStaticProps = async (props: any) => {
 
+  // TODO: get apollo to use localstorage caching
   // Set GQL query
   const { data } = await client.query({
     query: gql`

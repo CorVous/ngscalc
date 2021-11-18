@@ -1,6 +1,7 @@
 import { TFunction } from "i18next";
 import React, { Component } from "react";
-import { Condition, NGSClass, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../helpers/HelperTypes";
+import { getLocalName } from "../helpers/HelperFunctions";
+import { NGSClass, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../helpers/HelperTypes";
 
 type WeaponDisplayProps = {
   locale: string,
@@ -72,19 +73,19 @@ class WeaponDisplay extends Component<WeaponDisplayProps, WeaponDisplayState> {
       <div>
         <h1>Weapon</h1>
         <div>
-          <button onClick={() => this.setWeaponSelect(!this.state.selectingWeapon)} >{!this.state.selectingWeapon ? "Select" : "Cancel"}</button>
+          <button onClick={() => this.setWeaponSelect(!this.state.selectingWeapon)} >{!this.state.selectingWeapon ? this.props.t("Select") : this.props.t("Cancel")}</button>
           {this.state.selectingWeapon ?
-            <button>Confirm</button> 
+            <button>{this.props.t("Confirm")}</button> 
           :null}
         </div>
         {this.state.selectingWeapon ?
         <div id="weapon-selection">
-          <input type="text" placeholder="Weapon Name" />
+          <input type="text" placeholder={this.props.t("Weapon Name")} />
           {
             classesWeapons.map(x => {
               return (
                 <div key={x.weapon.id + "." + x.weaponType.id}>
-                  <h2>{x.weapon.name} {x.weaponType.suffix}</h2>
+                  <h2>{getLocalName(this.props.locale, x.weapon.name, x.weapon.iname)} {getLocalName(this.props.locale, x.weaponType.suffix, x.weaponType.isuffix)}</h2>
                 </div>
               )
             })

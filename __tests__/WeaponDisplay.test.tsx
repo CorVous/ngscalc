@@ -74,14 +74,14 @@ describe("Component in Japanese", () => {
     expect(screen.getByText(/weapon/i, {exact: true})).toBeInTheDocument()
   })
 
-  it("Should be able to find and select \"プリム blade\"", () => {
+  it("Should be able to find and select \"プリム ブレード\"", () => {
     userEvent.click(screen.getByText(/select/i))
     expect(screen.getByText(/select/i)).not.toBeInTheDocument()
 
     userEvent.click(screen.getByPlaceholderText(/search/i))
     userEvent.keyboard('プリ')
 
-    userEvent.click(screen.getByText(/プリム blade/i))
+    userEvent.click(screen.getByText(/プリム ブレード/i))
     userEvent.click(screen.getByText(/confirm/i))
 
     expect(screen.getByTestId('weapon-potential-name')).toHaveTextContent('節制の型')
