@@ -1,3 +1,14 @@
 {
-  "title": "PSO2:NGSダメージ計算機"
+  "title": "PSO2:NGSダメージ計算機",
+  "Select": "選択",
+  "Cancel": "キャンセル",
+  "Confirm": "確認",
+  "Weapon": "武器",
+  "Weapon Name": "武器名称",
+  "invalid": "無効",
+  "Class": "クラス",
+  "Level": "レベル",
+  "HP": "HP",
+  "Attack": "攻撃力",
+  "Defense": "防御力"
 }

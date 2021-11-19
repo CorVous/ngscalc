@@ -91,7 +91,7 @@ class NGSClassDisplay extends Component<NGSClassDisplayProps, NGSClassDisplaySta
     
     if (this.state.currentClass) {
       const maxLevel: number = Math.max.apply(Math, this.state.currentClass.stats.map(function(o) { return o.level }))
-      const verifiedLevel: number = currentLevel > maxLevel ? maxLevel : currentLevel
+      const verifiedLevel: number = currentLevel > maxLevel ? maxLevel : currentLevel < 1 ? 1 : currentLevel
       this.setState({
         currentLevel: verifiedLevel,
       })

@@ -2,11 +2,11 @@ import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import WeaponDisplay from '../src/components/WeaponDisplay'
-import { WeaponSeries } from '../src/helpers/HelperTypes'
-import { classMocks, conditionCategoriesMock, conditionsMock, weaponRarityAttackScalingsMock, weaponsMock, weaponTypesMock } from '../__mocks__/dataMocks'
+import { WeaponSeries, WeaponType } from '../src/helpers/HelperTypes'
+import { classMocks, weaponRarityAttackScalingsMock, weaponsMock, weaponTypesMock } from '../__mocks__/dataMocks'
 import { mockTranslation } from '../__mocks__/mockTranslation'
 
-function mockSetWeapon(weapon: WeaponSeries, level: number) {}
+function mockSetWeapon(weapon: WeaponSeries, weaponType: WeaponType, enhanceLevel: number, potLevel: number) {}
 
 describe("Component for Selecting and showing your weapon", () => {
   
@@ -26,32 +26,31 @@ describe("Component for Selecting and showing your weapon", () => {
 
   it("Should be able to find and select \"primm blade\"", () => {
     userEvent.click(screen.getByText(/select/i))
-    expect(screen.getByText(/select/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/weapon name/i)).not.toBeInTheDocument()
 
-    userEvent.click(screen.getByPlaceholderText(/search/i))
+    userEvent.click(screen.getByPlaceholderText(/weapon name/i))
     userEvent.keyboard('prim')
 
     userEvent.click(screen.getByText(/primm blade/i))
     userEvent.click(screen.getByText(/confirm/i))
 
     expect(screen.getByText(/select/i)).toBeInTheDocument()
-    expect(screen.getByPlaceholderText(/search/i)).not.toBeInTheDocument()
+    expect(screen.queryByPlaceholderText(/search/i)).not.toBeInTheDocument()
 
     expect(screen.getByText(/primm blade/i)).toBeInTheDocument()
 
-    expect(screen.getByTestId('weapon-attack-value')).toHaveTextContent('172')
+    expect(screen.getByTestId('weapon-attack-value')).toHaveTextContent('177')
+    expect(screen.getByTestId('weapon-range-value')).toHaveTextContent('70% - 100%')
     expect(screen.getByTestId('weapon-potential-name')).toHaveTextContent('Recycler Unit')
-    expect(screen.getByTestId('weapon-min-value')).toHaveTextContent('70%')
-    expect(screen.getByTestId('weapon-max-value')).toHaveTextContent('100%')
-    expect(screen.getByTestId('weapon-potential-description')).toHaveTextContent("After equipping for 10 seconds, 20% chance of Restasigne to not be consumed on use\n\n//Potential of: Primm, Silver Primm, Gold Primm")
+    expect(screen.getByTestId('weapon-potential-description')).toHaveTextContent("After equipping for 10 seconds, 20% chance of Restasigne to not be consumed on use //Potential of: Primm, Silver Primm, Gold Primm")
 
     // Try to set enhancement level to 2
-    userEvent.click(screen.getByLabelText(/enhancement/i))
+    userEvent.click(screen.getByLabelText(/primm blade/i))
     userEvent.keyboard('{selectall}2')
-    expect(screen.getByTestId('weapon-attack-value')).toHaveTextContent('183')
+    expect(screen.getByTestId('weapon-attack-value')).toHaveTextContent('185')
     
     // Try to set potential level to 2
-    userEvent.click(screen.getByLabelText(/potential/i))
+    userEvent.click(screen.getByLabelText(/level/i))
     userEvent.keyboard('{selectall}2')
     // TODO: Check if potential is set to 2
   })
@@ -71,21 +70,26 @@ describe("Component in Japanese", () => {
   })
 
   it("Should be rendered", () => {
+    // Weapon
     expect(screen.getByText(/weapon/i, {exact: true})).toBeInTheDocument()
   })
 
   it("Should be able to find and select \"プリム ブレード\"", () => {
+    // Select
     userEvent.click(screen.getByText(/select/i))
-    expect(screen.getByText(/select/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/select/i)).not.toBeInTheDocument()
 
-    userEvent.click(screen.getByPlaceholderText(/search/i))
+    // weapon name
+    userEvent.click(screen.getByPlaceholderText(/weapon name/i))
     userEvent.keyboard('プリ')
 
-    userEvent.click(screen.getByText(/プリム ブレード/i))
+    // Primm Blade
+    userEvent.click(screen.getByText(/プリム ブレード/))
+    // Confirm
     userEvent.click(screen.getByText(/confirm/i))
 
     expect(screen.getByTestId('weapon-potential-name')).toHaveTextContent('節制の型')
-    expect(screen.getByTestId('weapon-potential-description')).toHaveTextContent("After equipping for 10 seconds, 20% chance of Restasigne to not be consumed on use\n\n//Potential of: Primm, Silver Primm, Gold Primm")
+    expect(screen.getByTestId('weapon-potential-description')).toHaveTextContent("After equipping for 10 seconds, 20% chance of Restasigne to not be consumed on use //Potential of: Primm, Silver Primm, Gold Primm")
   })
 })
   // Test for japanese as well

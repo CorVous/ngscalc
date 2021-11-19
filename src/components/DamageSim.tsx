@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NGSClassDisplay from "./NGSClassDisplay";
 import { TFunction } from "i18next";
 import WeaponDisplay from "./WeaponDisplay";
-import { NGSClass, WeaponSeries } from "../helpers/HelperTypes";
+import { NGSClass, WeaponSeries, WeaponType } from "../helpers/HelperTypes";
 
 type DamageSimProps = {
   apiData: any;
@@ -16,8 +16,10 @@ type DamageSimState = {
     level?: number,
   },
   weapon?: {
-    current?: WeaponSeries,
-    level?: number,
+    series?: WeaponSeries,
+    type?: WeaponType,
+    enhanceLevel?: number,
+    potLevel?: number,
   },
 }
 
@@ -57,11 +59,13 @@ class DamageSim extends Component<DamageSimProps, DamageSimState> {
     })
   }
 
-  setWeapon = (weapon: WeaponSeries, level: number) => {
+  setWeapon = (weapon: WeaponSeries, weaponType: WeaponType, enhanceLevel: number, potLevel: number) => {
     this.setState({
       weapon: {
-        current: weapon,
-        level: level,
+        series: weapon,
+        type: weaponType,
+        enhanceLevel: enhanceLevel,
+        potLevel: potLevel,
       }
     })
   }
