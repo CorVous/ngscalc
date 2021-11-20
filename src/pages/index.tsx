@@ -48,7 +48,7 @@ export const getStaticProps: GetStaticProps = async (props: any) => {
           weapon_series {
             id
           }
-          
+          damage_type
         }
       
         weapons {

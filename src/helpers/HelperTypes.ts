@@ -13,12 +13,19 @@ export type NGSClass = {
   weapon_types: any[], // WeaponType[]
 }
 
+export enum DamageType {
+  melee,
+  ranged,
+  technique,
+}
+
 export type WeaponType = {
   id: string,
   name: string,
   iname: any,
   suffix: string,
   isuffix: any,
+  damage_type: DamageType,
   classes: any[], // NGSClass[]
   weapon_series: any[], // WeaponSeries[]
 }
