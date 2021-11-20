@@ -5,22 +5,22 @@ import WeaponDisplay from "./WeaponDisplay";
 import { NGSClass, WeaponSeries, WeaponType } from "../helpers/HelperTypes";
 
 type DamageSimProps = {
-  apiData: any;
-  locale: string;
-  t: TFunction;
+  apiData: any
+  locale: string
+  t: TFunction
 }
 
 type DamageSimState = {
   ngsClass?: {
-    current?: NGSClass,
-    level?: number,
-  },
+    current?: NGSClass
+    level?: number
+  }
   weapon?: {
-    series?: WeaponSeries,
-    type?: WeaponType,
-    enhanceLevel?: number,
-    potLevel?: number,
-  },
+    series?: WeaponSeries
+    type?: WeaponType
+    enhanceLevel?: number
+    potLevel?: number
+  }
 }
 
 class DamageSim extends Component<DamageSimProps, DamageSimState> {
@@ -43,6 +43,7 @@ class DamageSim extends Component<DamageSimProps, DamageSimState> {
             weapons={this.props.apiData.weapons}
             weaponTypes={this.props.apiData.weaponTypes}
             weaponRarityAttackScalings={this.props.apiData.weaponRarityAttackScalings}
+            conditions={this.props.apiData.conditions}
             setWeapon={this.setWeapon}
           />
         : null}

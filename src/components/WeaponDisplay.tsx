@@ -1,50 +1,54 @@
 import { TFunction } from "i18next";
-import React, { Component } from "react";
+import React from "react";
 import { getLocalName } from "../helpers/HelperFunctions";
-import { NGSClass, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../helpers/HelperTypes";
+import { Condition, EffectSet, NGSClass, WeaponPotential, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../helpers/HelperTypes";
+import EffectDisplay from "./EffectDisplay";
 
 type WeaponDisplayProps = {
-  locale: string,
-  t: TFunction,
+  locale: string
+  t: TFunction
   startingWeapon?: {
-    series?: WeaponSeries,
-    type?: WeaponType,
-    enhanceLevel?: number,
-    potLevel?: number,
-  },
-  currentClass: NGSClass,
-  weapons: WeaponSeries[],
-  weaponTypes: WeaponType[],
-  weaponRarityAttackScalings: WeaponRarityAttackScaling[],
-  setWeapon: (weapon: WeaponSeries, weaponType: WeaponType, enhanceLevel: number, potLevel: number) => void,
+    series?: WeaponSeries
+    type?: WeaponType
+    enhanceLevel?: number
+    potLevel?: number
+  }
+  currentClass: NGSClass
+  weapons: WeaponSeries[]
+  weaponTypes: WeaponType[]
+  conditions: Condition[]
+  weaponRarityAttackScalings: WeaponRarityAttackScaling[]
+  setWeapon: (weapon: WeaponSeries, weaponType: WeaponType, enhanceLevel: number, potLevel: number) => void
 }
 
 type WeaponDisplayState = {
-  selectingWeapon: boolean,
-  weaponSearch: string,
-  currentSelectedWeaponSeries?: WeaponSeries,
-  currentSelectedWeaponType?: WeaponType,
-  currentWeaponSeries?: WeaponSeries,
-  currentWeaponType?: WeaponType,
-  currentEnhancementLevel: number | "",
-  currentPotentialLevel: number | "",
+  selectingWeapon: boolean
+  weaponSearch: string
+  currentSelectedWeaponSeries?: WeaponSeries
+  currentSelectedWeaponType?: WeaponType
+  currentWeaponSeries?: WeaponSeries
+  currentWeaponType?: WeaponType
+  currentEnhancementLevel: number | ""
+  currentPotentialLevel: number | ""
 }
 
 type WeaponElement = {
-  weaponSeries: WeaponSeries,
-  weaponType: WeaponType,
+  weaponSeries: WeaponSeries
+  weaponType: WeaponType
 }
 
-class WeaponDisplay extends Component<WeaponDisplayProps, WeaponDisplayState> {
+class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplayState> {
   constructor(props: WeaponDisplayProps) {
     super(props);
     this.state = {
       selectingWeapon: false,
       weaponSearch: "",
-      currentEnhancementLevel: 0,
-      currentPotentialLevel: 1,
+      currentEnhancementLevel: this.props.startingWeapon?.enhanceLevel ?? 0,
+      currentPotentialLevel: this.props.startingWeapon?.potLevel ?? 1,
       currentSelectedWeaponSeries: this.props.startingWeapon?.series,
       currentSelectedWeaponType: this.props.startingWeapon?.type,
+      currentWeaponSeries: this.props.startingWeapon?.series,
+      currentWeaponType: this.props.startingWeapon?.type
     }
   }
 
@@ -81,6 +85,19 @@ class WeaponDisplay extends Component<WeaponDisplayProps, WeaponDisplayState> {
 
   render() {
     const classesWeapons = this.getClassesWeapons()
+    let potentialLevel: number
+    if (this.state.currentPotentialLevel == "") {
+      potentialLevel = 1
+    } else {
+      potentialLevel = Number(this.state.currentPotentialLevel)
+    }
+    const currPotEffect: EffectSet | undefined = this.state.currentWeaponSeries?.weapon_potential.potential.find(x => x.level == potentialLevel)?.effect
+    const currPotCEffect: EffectSet | undefined = this.state.currentWeaponSeries?.weapon_potential.potential.find(x => x.level == potentialLevel)?.conditional_effect ?? undefined
+    let currCondition: Condition | undefined
+    if (this.state.currentWeaponSeries?.weapon_potential?.condition){
+      currCondition = this.props.conditions.find(x=> x.id === this.state.currentWeaponSeries?.weapon_potential?.condition.id)
+    }
+
     return (
       <div>
         <h1>{this.props.t("Weapon")}</h1>
@@ -141,6 +158,19 @@ class WeaponDisplay extends Component<WeaponDisplayProps, WeaponDisplayState> {
                 this.state.currentWeaponSeries.weapon_potential.description,
                 this.state.currentWeaponSeries.weapon_potential.idescription)}
             </span></div>
+            <div>
+              {currPotEffect?
+                <EffectDisplay locale={this.props.locale} t={this.props.t}
+                effect={currPotEffect} />
+              : null}
+              <br />
+              {currCondition && currPotCEffect !== null && currPotCEffect !== undefined?
+                <EffectDisplay locale={this.props.locale} t={this.props.t}
+                  effect={currPotCEffect}
+                  condition={currCondition}
+                />
+              : null}
+            </div>
           </div>
         :null}
       </div>
@@ -212,15 +242,26 @@ class WeaponDisplay extends Component<WeaponDisplayProps, WeaponDisplayState> {
     }
 
     if (this.state.currentWeaponSeries) {
-      const maxLevel: number = Math.max.apply(Math, this.state.currentWeaponSeries.weapon_potential.potential.map(function(o) { return o.level }))
-      newPotLevel = newPotLevel > maxLevel ? maxLevel : newPotLevel < 1 ? 1 : newPotLevel
-      this.setState({
-        currentPotentialLevel: newPotLevel,
-      })
-  
-      if (this.state.currentWeaponSeries && this.state.currentWeaponType) {
-        this.props.setWeapon(this.state.currentWeaponSeries, this.state.currentWeaponType, this.state.currentEnhancementLevel || 0, newPotLevel)
+      if (newPotLevel !== "") {
+        const maxLevel: number = Math.max.apply(Math, this.state.currentWeaponSeries.weapon_potential.potential.map(function(o) { return o.level }))
+        newPotLevel = newPotLevel > maxLevel ? maxLevel : newPotLevel < 1 ? 1 : newPotLevel
+        this.setState({
+          currentPotentialLevel: newPotLevel,
+        })
+    
+        if (this.state.currentWeaponSeries && this.state.currentWeaponType) {
+          this.props.setWeapon(this.state.currentWeaponSeries, this.state.currentWeaponType, this.state.currentEnhancementLevel || 0, newPotLevel)
+        }
+      } else {
+        this.setState({
+          currentPotentialLevel: newPotLevel,
+        })
+    
+        if (this.state.currentWeaponSeries && this.state.currentWeaponType) {
+          this.props.setWeapon(this.state.currentWeaponSeries, this.state.currentWeaponType, this.state.currentEnhancementLevel || 0, 1)
+        }
       }
+
     }
   }
 }

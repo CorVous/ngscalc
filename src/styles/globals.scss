@@ -9,3 +9,11 @@ a {
   text-decoration: none;
 }
 
+.effect {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  img {
+    background-color: black;
+    border-radius: 5px;
+  }
+}

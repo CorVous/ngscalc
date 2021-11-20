@@ -16,6 +16,7 @@ describe("Component for Selecting and showing your weapon", () => {
       weapons={weaponsMock}
       weaponTypes={weaponTypesMock}
       weaponRarityAttackScalings={weaponRarityAttackScalingsMock}
+      conditions={[]}
       setWeapon={mockSetWeapon}
     />)
   })
@@ -52,7 +53,19 @@ describe("Component for Selecting and showing your weapon", () => {
     // Try to set potential level to 2
     userEvent.click(screen.getByLabelText(/level/i))
     userEvent.keyboard('{selectall}2')
-    // TODO: Check if potential is set to 2
+    expect(screen.getByTestId('effect-tri-potency')).toHaveTextContent('20%')
+
+    // Try to set potential level to 10
+    userEvent.click(screen.getByLabelText(/level/i))
+    userEvent.keyboard('{selectall}10')
+    expect(screen.getByTestId('effect-tri-potency')).toHaveTextContent('24%')
+  })
+
+  it("Should not show primm blade when typing in a 'z'", () => {
+    userEvent.click(screen.getByText(/select/i))
+    userEvent.click(screen.getByPlaceholderText(/weapon name/i))
+    userEvent.keyboard('z')
+    expect(screen.queryByText(/primm blade/i)).not.toBeInTheDocument()
   })
 })
 
@@ -65,6 +78,7 @@ describe("Component in Japanese", () => {
       weapons={weaponsMock}
       weaponTypes={weaponTypesMock}
       weaponRarityAttackScalings={weaponRarityAttackScalingsMock}
+      conditions={[]}
       setWeapon={mockSetWeapon}
     />)
   })
@@ -92,4 +106,3 @@ describe("Component in Japanese", () => {
     expect(screen.getByTestId('weapon-potential-description')).toHaveTextContent("After equipping for 10 seconds, 20% chance of Restasigne to not be consumed on use //Potential of: Primm, Silver Primm, Gold Primm")
   })
 })
-  // Test for japanese as well

@@ -1,4 +1,4 @@
-import { Condition, ConditionCategory, NGSClass, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../src/helpers/HelperTypes"
+import { Condition, ConditionCategory, EffectSet, NGSClass, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../src/helpers/HelperTypes"
 
 export const weaponsMock: WeaponSeries[] = [
   {
@@ -659,3 +659,64 @@ export const conditionsMock: Condition[] = [
 export const conditionCategoriesMock: ConditionCategory[] = [
 
 ]
+
+export const effectMock: EffectSet = {
+  hp: 10,
+  melee_potency: 0.01,
+  technique_potency: 0.02,
+  ranged_potency: 0.03,
+  potency_floor: 0.05,
+  pp: 4,
+  damage_reduction: 0.04,
+  physical_down_resist: 0.06,
+  poison_resist: 0.07,
+  panic_resist: 0.08,
+  blind_resist: -0.09,
+  shock_resist: -0.10,
+  freeze_resist: 0.11,
+  burn_resist: 0.12,
+  pp_cost_down: 0.13,
+  pp_natural_regen: 0.14,
+  pp_active_regen: 0.15,
+  critical_chance: 0.16,
+  critical_damage: 0.17,
+}
+
+export const effectMockTripot: EffectSet = {
+  hp: 10,
+  melee_potency: 0.03,
+  technique_potency: 0.03,
+  ranged_potency: 0.03,
+  potency_floor: 0.05,
+  pp: 4,
+  damage_reduction: 0.04,
+  physical_down_resist: 0.06,
+  poison_resist: 0.07,
+  panic_resist: 0.08,
+  blind_resist: 0.09,
+  shock_resist: 0.10,
+  freeze_resist: 0.11,
+  burn_resist: 0.12,
+  pp_cost_down: 0.13,
+  pp_natural_regen: 0.14,
+  pp_active_regen: 0.15,
+  critical_chance: 0.16,
+  critical_damage: 0.17,
+}
+
+export const conditionMock: Condition = {
+  "id": "5",
+  "name": "Lightning Weakness",
+  "description": "Enemy is weak to Lightning",
+  "iname": {
+    "ja": "雷属性弱点"
+  },
+  "idescription": {
+    "ja": "敵が雷属性に弱い"
+  },
+  "condition_categories": [
+    {
+      "id": "1"
+    }
+  ]
+}
