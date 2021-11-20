@@ -6,7 +6,7 @@ import { WeaponSeries, WeaponType } from '../src/helpers/HelperTypes'
 import { classMocks, weaponRarityAttackScalingsMock, weaponsMock, weaponTypesMock } from '../__mocks__/dataMocks'
 import { mockTranslation } from '../__mocks__/mockTranslation'
 
-function mockSetWeapon(weapon: WeaponSeries, weaponType: WeaponType, enhanceLevel: number, potLevel: number) {}
+function mockSetWeapon(weapon: WeaponSeries | null, weaponType: WeaponType | null, enhanceLevel: number, potLevel: number) {}
 
 describe("Component for Selecting and showing your weapon", () => {
   

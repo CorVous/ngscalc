@@ -1,7 +1,7 @@
 import { TFunction } from "i18next";
 import React from "react";
 import { getLocalName } from "../helpers/HelperFunctions";
-import { Condition, EffectSet, NGSClass, WeaponPotential, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../helpers/HelperTypes";
+import { Condition, EffectSet, NGSClass, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../helpers/HelperTypes";
 import EffectDisplay from "./EffectDisplay";
 
 type WeaponDisplayProps = {
@@ -12,22 +12,22 @@ type WeaponDisplayProps = {
     type?: WeaponType
     enhanceLevel?: number
     potLevel?: number
-  }
+  } | null
   currentClass: NGSClass
   weapons: WeaponSeries[]
   weaponTypes: WeaponType[]
   conditions: Condition[]
   weaponRarityAttackScalings: WeaponRarityAttackScaling[]
-  setWeapon: (weapon: WeaponSeries, weaponType: WeaponType, enhanceLevel: number, potLevel: number) => void
+  setWeapon: (weapon: WeaponSeries | null, weaponType: WeaponType | null, enhanceLevel: number, potLevel: number) => void
 }
 
 type WeaponDisplayState = {
   selectingWeapon: boolean
   weaponSearch: string
-  currentSelectedWeaponSeries?: WeaponSeries
-  currentSelectedWeaponType?: WeaponType
-  currentWeaponSeries?: WeaponSeries
-  currentWeaponType?: WeaponType
+  currentSelectedWeaponSeries?: WeaponSeries | null
+  currentSelectedWeaponType?: WeaponType | null
+  currentWeaponSeries?: WeaponSeries | null
+  currentWeaponType?: WeaponType | null
   currentEnhancementLevel: number | ""
   currentPotentialLevel: number | ""
 }
@@ -40,6 +40,7 @@ type WeaponElement = {
 class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplayState> {
   constructor(props: WeaponDisplayProps) {
     super(props);
+
     this.state = {
       selectingWeapon: false,
       weaponSearch: "",
@@ -81,6 +82,21 @@ class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplaySta
     })
 
     return classesWeapons
+  }
+
+  componentDidUpdate() {
+    const classWeaponMismatch = this.props.currentClass.weapon_types.find(x => x.id == this.props.startingWeapon?.type?.id) === undefined
+    if (this.props.startingWeapon?.type?.id && classWeaponMismatch) {
+      this.setState({
+        currentSelectedWeaponSeries: null,
+        currentSelectedWeaponType: null,
+        currentWeaponSeries: null,
+        currentWeaponType: null,
+        currentEnhancementLevel: 0,
+        currentPotentialLevel: 1
+      })
+      this.props.setWeapon(null, null, 0, 1)
+    }
   }
 
   render() {
@@ -212,7 +228,6 @@ class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplaySta
   enhancementLevelChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newEnhancementLevel: any = e.target.value
     
-
     if (e.target.value === "") {
       newEnhancementLevel = ""
     } else {
@@ -235,14 +250,9 @@ class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplaySta
   potentialLevelChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newPotLevel: any = e.target.value
 
-    if (e.target.value === "") {
-      newPotLevel = ""
-    } else {
-      newPotLevel = Number(e.target.value)
-    }
-
     if (this.state.currentWeaponSeries) {
       if (newPotLevel !== "") {
+        newPotLevel = Number(e.target.value)
         const maxLevel: number = Math.max.apply(Math, this.state.currentWeaponSeries.weapon_potential.potential.map(function(o) { return o.level }))
         newPotLevel = newPotLevel > maxLevel ? maxLevel : newPotLevel < 1 ? 1 : newPotLevel
         this.setState({

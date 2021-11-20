@@ -14,13 +14,13 @@ type DamageSimState = {
   ngsClass?: {
     current?: NGSClass
     level?: number
-  }
+  } | null
   weapon?: {
     series?: WeaponSeries
     type?: WeaponType
     enhanceLevel?: number
     potLevel?: number
-  }
+  } | null
 }
 
 class DamageSim extends Component<DamageSimProps, DamageSimState> {
@@ -38,7 +38,7 @@ class DamageSim extends Component<DamageSimProps, DamageSimState> {
         />
         {this.state?.ngsClass?.current ? 
           <WeaponDisplay locale={this.props.locale} t={this.props.t}
-            startingWeapon={this.state?.weapon ? this.state.weapon : undefined}
+            startingWeapon={this.state.weapon}
             currentClass={this.state.ngsClass.current}
             weapons={this.props.apiData.weapons}
             weaponTypes={this.props.apiData.weaponTypes}
@@ -60,15 +60,21 @@ class DamageSim extends Component<DamageSimProps, DamageSimState> {
     })
   }
 
-  setWeapon = (weapon: WeaponSeries, weaponType: WeaponType, enhanceLevel: number, potLevel: number) => {
-    this.setState({
-      weapon: {
-        series: weapon,
-        type: weaponType,
-        enhanceLevel: enhanceLevel,
-        potLevel: potLevel,
-      }
-    })
+  setWeapon = (weapon: WeaponSeries | null, weaponType: WeaponType | null, enhanceLevel: number, potLevel: number) => {
+    if (weapon && weaponType) {
+      this.setState({
+        weapon: {
+          series: weapon,
+          type: weaponType,
+          enhanceLevel: enhanceLevel,
+          potLevel: potLevel,
+        }
+      })
+    } else {
+      this.setState({
+        weapon: null
+      })
+    }
   }
 }
 

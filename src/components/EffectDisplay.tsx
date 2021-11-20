@@ -31,7 +31,7 @@ class EffectDisplay extends React.Component<EffectDisplayProps> {
         {/* Potency */}
         {tripot?
           <div>
-            <Image priority={true} src="/icons/tripot.png" alt="effect-tri-potency" width="40" height="20" />
+            <Image priority={true} src="/icons/tripot.png" alt="effect-tri-potency" title="effect-tri-potency" width="40" height="20" />
             <span data-testid="effect-tri-potency">
               {this.displayPercent(tripot)}
             </span>
@@ -60,7 +60,7 @@ class EffectDisplay extends React.Component<EffectDisplayProps> {
         {this.displayImageStat(this.props.effect.blind_resist, "effect-blind-resist", "/icons/status_blind.png")}
         {this.displayImageStat(this.props.effect.burn_resist, "effect-burn-resist", "/icons/status_burn.png")}
         {this.displayImageStat(this.props.effect.panic_resist, "effect-panic-resist", "/icons/status_panic.png")}
-        {this.displayImageStat(this.props.effect.physical_down_resist, "effect-physical-down-resist", "/icons/status_physical_down.png")}
+        {this.displayImageStat(this.props.effect.physical_down_resist, "effect-physical-down-resist", "/icons/status_physDown.png")}
       </div>
     )
   }
@@ -77,7 +77,7 @@ class EffectDisplay extends React.Component<EffectDisplayProps> {
     if (num) {
       return (
         <div>
-          <Image priority={true} alt={testid} src={image} width="20" height="20" />
+          <Image priority={true} alt={testid} title={testid} src={image} width="20" height="20" />
           <span data-testid={testid}>
             {percentage ? this.displayPercent(num) : this.displayPositiveSign(this.round(num)) + this.round(num)}
           </span>
