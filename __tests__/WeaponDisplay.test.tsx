@@ -26,8 +26,8 @@ describe("Component for Selecting and showing your weapon", () => {
   })
 
   it("Should be able to find and select \"primm blade\"", () => {
+    expect(screen.queryByPlaceholderText(/weapon name/i)).not.toBeInTheDocument()
     userEvent.click(screen.getByText(/select/i))
-    expect(screen.queryByText(/weapon name/i)).not.toBeInTheDocument()
 
     userEvent.click(screen.getByPlaceholderText(/weapon name/i))
     userEvent.keyboard('prim')
