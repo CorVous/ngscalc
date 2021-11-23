@@ -60,7 +60,7 @@ describe("Component to display and select armor", () => {
     // Expect level 0 to be the minimum
     userEvent.click(screen.getByLabelText(/primm armor/i))
     userEvent.keyboard('{selectall}-19')
-    expect(screen.getByTestId('armor-defense-value')).toHaveTextContent('8')
+    expect(screen.getByTestId('armor-defense-value')).toHaveTextContent('27')
 
     // Try to set enhancement level to 48
     // Expect level 40 to be the max
