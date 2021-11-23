@@ -236,7 +236,8 @@ class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplaySta
     }
 
     if (this.state.currentWeaponSeries) {
-      const maxLevel: number = Math.max.apply(Math, this.state.currentWeaponSeries.attack.map(function(o) { return o.level }))
+      const weaponAttackScaling = this.props.weaponRarityAttackScalings.find(x => x.id === this.state.currentWeaponSeries?.weapon_rarity_attack_scaling.id)
+      const maxLevel: number = Math.max.apply(Math, weaponAttackScaling?.attack.map(function(o) { return o.level }) || [])
       newEnhancementLevel = newEnhancementLevel > maxLevel ? maxLevel : newEnhancementLevel < 0 ? 0 : newEnhancementLevel
       this.setState({
         currentEnhancementLevel: newEnhancementLevel,
