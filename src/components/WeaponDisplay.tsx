@@ -221,10 +221,9 @@ class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplaySta
 
   getWeaponAttackValue = (weaponSeries: WeaponSeries, enhanceLevel: number) => {
     const rarityScaling = this.props.weaponRarityAttackScalings.find(x => x.id === weaponSeries.weapon_rarity_attack_scaling.id)
-    const weaponLevelScaling = weaponSeries.attack.find(x => x.level === enhanceLevel)?.value ?? 0
     const rarityLevelScaling = rarityScaling?.attack.find(x => x.level === enhanceLevel)?.value ?? 0
 
-    return Number(weaponLevelScaling) + Number(rarityLevelScaling)
+    return weaponSeries.base_attack + Number(rarityLevelScaling)
   }
 
   enhancementLevelChanged = (e: React.ChangeEvent<HTMLInputElement>) => {

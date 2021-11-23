@@ -47,7 +47,7 @@ describe("Component for Selecting and showing your weapon", () => {
     // Try to set enhancement level to 2
     userEvent.click(screen.getByLabelText(/primm blade/i))
     userEvent.keyboard('{selectall}2')
-    expect(screen.getByTestId('weapon-attack-value')).toHaveTextContent('185')
+    expect(screen.getByTestId('weapon-attack-value')).toHaveTextContent('181')
     
     // Try to set potential level to 2
     userEvent.click(screen.getByLabelText(/level/i))

@@ -58,10 +58,6 @@ export const getStaticProps: GetStaticProps = async (props: any) => {
             ja
           }
           base_attack
-          attack {
-            level
-            value
-          }
           min_attack
           max_attack
           weapon_potential {
