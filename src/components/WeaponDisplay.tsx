@@ -238,7 +238,7 @@ class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplaySta
     if (this.state.currentWeaponSeries) {
       const weaponAttackScaling = this.props.weaponRarityAttackScalings.find(x => x.id === this.state.currentWeaponSeries?.weapon_rarity_attack_scaling.id)
       const maxLevel: number = Math.max.apply(Math, weaponAttackScaling?.attack.map(function(o) { return o.level }) || [])
-      newEnhancementLevel = newEnhancementLevel > maxLevel ? maxLevel : newEnhancementLevel < 0 ? 0 : newEnhancementLevel
+      newEnhancementLevel = newEnhancementLevel > maxLevel ? maxLevel : newEnhancementLevel < 0 ? Math.abs(newEnhancementLevel) : newEnhancementLevel
       this.setState({
         currentEnhancementLevel: newEnhancementLevel,
       })
@@ -256,7 +256,7 @@ class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplaySta
       if (newPotLevel !== "") {
         newPotLevel = Number(e.target.value)
         const maxLevel: number = Math.max.apply(Math, this.state.currentWeaponSeries.weapon_potential.potential.map(function(o) { return o.level }))
-        newPotLevel = newPotLevel > maxLevel ? maxLevel : newPotLevel < 0 ? 0 : newPotLevel
+        newPotLevel = newPotLevel > maxLevel ? maxLevel : newPotLevel < 0 ? Math.abs(newPotLevel) : newPotLevel
         this.setState({
           currentPotentialLevel: newPotLevel,
         })
@@ -270,7 +270,7 @@ class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplaySta
         })
     
         if (this.state.currentWeaponSeries && this.state.currentWeaponType) {
-          this.props.setWeapon(this.state.currentWeaponSeries, this.state.currentWeaponType, this.state.currentEnhancementLevel || 0, 1)
+          this.props.setWeapon(this.state.currentWeaponSeries, this.state.currentWeaponType, this.state.currentEnhancementLevel || 0, 0)
         }
       }
 

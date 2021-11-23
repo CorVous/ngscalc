@@ -160,7 +160,7 @@ class ArmorDisplay extends React.Component<ArmorDisplayProps, ArmorDisplayState>
     } else {
       const thisScaling = this.props.armorRarityScalings.find(armorRarityScaling => armorRarityScaling.id === currentArmor[index].armor.armor_rarity_defense_scaling.id)
       const maxLevel = Math.max.apply(Math, thisScaling?.defense.map(function(o) { return o.level }) ?? [])
-      const newEnhancementLevel = Number(value) > maxLevel ? maxLevel : Number(value) < 0 ? 0 : Number(value)
+      const newEnhancementLevel = Number(value) > maxLevel ? maxLevel : Number(value) < 0 ? Math.abs(Number(value)) : Number(value)
       currentArmor[index].enhanceLevel = newEnhancementLevel
     }
     this.setState({
