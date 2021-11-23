@@ -43,7 +43,6 @@ describe("Component for Selecting and showing your weapon", () => {
     expect(screen.getByTestId('weapon-attack-value')).toHaveTextContent('177')
     expect(screen.getByTestId('weapon-range-value')).toHaveTextContent('70% - 100%')
     expect(screen.getByTestId('weapon-potential-name')).toHaveTextContent('Recycler Unit')
-    expect(screen.getByTestId('weapon-potential-description')).toHaveTextContent("After equipping for 10 seconds, 20% chance of Restasigne to not be consumed on use //Potential of: Primm, Silver Primm, Gold Primm")
 
     // Try to set enhancement level to 2
     userEvent.click(screen.getByLabelText(/primm blade/i))
@@ -103,6 +102,5 @@ describe("Component in Japanese", () => {
     userEvent.click(screen.getByText(/confirm/i))
 
     expect(screen.getByTestId('weapon-potential-name')).toHaveTextContent('節制の型')
-    expect(screen.getByTestId('weapon-potential-description')).toHaveTextContent("After equipping for 10 seconds, 20% chance of Restasigne to not be consumed on use //Potential of: Primm, Silver Primm, Gold Primm")
   })
 })
