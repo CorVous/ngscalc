@@ -1,8 +1,8 @@
-import { TFunction } from "i18next";
-import React from "react";
-import { getLocalName } from "../helpers/HelperFunctions";
-import { Condition, EffectSet, NGSClass, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../helpers/HelperTypes";
-import EffectDisplay from "./EffectDisplay";
+import React from "react"
+import { TFunction } from "i18next"
+import { getLocalName, searchAllNames } from "../helpers/HelperFunctions"
+import { Condition, EffectSet, NGSClass, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../helpers/HelperTypes"
+import EffectDisplay from "./EffectDisplay"
 
 type WeaponDisplayProps = {
   locale: string
@@ -39,7 +39,7 @@ type WeaponElement = {
 
 class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplayState> {
   constructor(props: WeaponDisplayProps) {
-    super(props);
+    super(props)
 
     this.state = {
       selectingWeapon: false,
@@ -128,18 +128,21 @@ class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplaySta
         <div id="weapon-selection">
           <input id="weapon-search" type="text" placeholder={this.props.t("Weapon Name")} value={this.state.weaponSearch} onChange={(e)=>this.setState({ weaponSearch: e.target.value })} />
           {classesWeapons.map(x => {
-            return (
-              <div key={x.weaponSeries.id + "." + x.weaponType.id} onClick={() => this.selectWeapon(x.weaponSeries, x.weaponType)} style={{cursor: "pointer"}}>
-                <h2>{(this.state.currentSelectedWeaponSeries?.id === x.weaponSeries.id && this.state.currentSelectedWeaponType?.id === x.weaponType.id) ? "->" : ""}
-                  {getLocalName(this.props.locale, x.weaponSeries.name, x.weaponSeries.iname)} {getLocalName(this.props.locale, x.weaponType.suffix, x.weaponType.isuffix)}</h2>
-              </div>
-            )
+            if (this.state.weaponSearch == "" || searchAllNames(this.state.weaponSearch, x.weaponSeries.name, x.weaponSeries.iname)) {
+              return (
+                <div key={x.weaponSeries.id + "." + x.weaponType.id} onClick={() => this.selectWeapon(x.weaponSeries, x.weaponType)} style={{cursor: "pointer"}}>
+                  <h2>{(this.state.currentSelectedWeaponSeries?.id === x.weaponSeries.id && this.state.currentSelectedWeaponType?.id === x.weaponType.id) ? "->" : ""}
+                    {getLocalName(this.props.locale, x.weaponSeries.name, x.weaponSeries.iname)} {getLocalName(this.props.locale, x.weaponType.suffix, x.weaponType.isuffix)}</h2>
+                  <div>{this.props.t("Rarity")}: {x.weaponSeries.weapon_rarity_attack_scaling.rarity }</div>
+                  <div>{this.props.t("Attack")}: {x.weaponSeries.base_attack}</div>
+                </div>
+              )
+            }
           })}
-          <hr />
         </div>
         :null}
         {/* Weapon Details */}
-        {this.state.currentWeaponSeries && this.state.currentWeaponType ?
+        {this.state.currentWeaponSeries && this.state.currentWeaponType && !this.state.selectingWeapon ?
           <div>
             <h2>
               <label htmlFor="weapon-enhancement-level">
@@ -147,7 +150,6 @@ class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplaySta
                   this.state.currentWeaponSeries.name,
                   this.state.currentWeaponSeries.iname)}
                 {' '}
-
                 {getLocalName(this.props.locale,
                   this.state.currentWeaponType.suffix,
                   this.state.currentWeaponType.isuffix)}
@@ -196,6 +198,8 @@ class WeaponDisplay extends React.Component<WeaponDisplayProps, WeaponDisplaySta
   setWeaponSelect = (weaponSelection: boolean) => {
     this.setState({
       selectingWeapon: weaponSelection,
+      currentSelectedWeaponSeries: this.state.currentWeaponSeries,
+      currentSelectedWeaponType: this.state.currentWeaponType,
     })
   }
 

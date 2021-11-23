@@ -108,3 +108,26 @@ export type ConditionCategory = {
   idescription: any,
   conditions: any[], // ConditionCategory[]
 }
+
+export type Armor = {
+  id: string,
+  name: string,
+  iname: any,
+  base_defense: number,
+  stats: EffectSet,
+  armor_rarity_defense_scaling: any, // ArmorRarityDefenseScaling[]
+}
+
+export type ArmorRarityDefenseScaling = {
+  id: string,
+  rarity: number,
+  defense: {
+    level: number,
+    value: number,
+  }[]
+}
+
+export type ArmorSet = {
+  armor: Armor,
+  enhanceLevel: number | "",
+}

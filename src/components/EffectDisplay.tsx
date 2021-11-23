@@ -76,7 +76,7 @@ class EffectDisplay extends React.Component<EffectDisplayProps> {
   displayImageStat = (num: number | null | undefined, testid: string, image: string, percentage: boolean = true) => {
     if (num) {
       return (
-        <div>
+        <div style={{display: "inline-block"}} >
           <Image priority={true} alt={testid} title={testid} src={image} width="20" height="20" />
           <span data-testid={testid}>
             {percentage ? this.displayPercent(num) : this.displayPositiveSign(this.round(num)) + this.round(num)}

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import NGSClassDisplay from "./NGSClassDisplay";
 import { TFunction } from "i18next";
 import WeaponDisplay from "./WeaponDisplay";
-import { NGSClass, WeaponSeries, WeaponType } from "../helpers/HelperTypes";
+import { ArmorSet, NGSClass, WeaponSeries, WeaponType } from "../helpers/HelperTypes";
+import ArmorDisplay from "./ArmorDisplay";
 
 type DamageSimProps = {
   apiData: any
@@ -21,6 +22,7 @@ type DamageSimState = {
     enhanceLevel?: number
     potLevel?: number
   } | null
+  armor?: ArmorSet[]
 }
 
 class DamageSim extends Component<DamageSimProps, DamageSimState> {
@@ -47,6 +49,13 @@ class DamageSim extends Component<DamageSimProps, DamageSimState> {
             setWeapon={this.setWeapon}
           />
         : null}
+        <ArmorDisplay
+          locale={this.props.locale}
+          t={this.props.t}
+          armors={this.props.apiData.armors}
+          armorRarityScalings={this.props.apiData.armorRarityDefenseScalings}
+          setArmor={this.setArmor}
+        />
       </>
     )
   }
@@ -75,6 +84,12 @@ class DamageSim extends Component<DamageSimProps, DamageSimState> {
         weapon: null
       })
     }
+  }
+
+  setArmor = (armor: ArmorSet[]) => {
+    this.setState({
+      armor: armor
+    })
   }
 }
 

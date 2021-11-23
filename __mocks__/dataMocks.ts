@@ -1,4 +1,4 @@
-import { Condition, ConditionCategory, EffectSet, NGSClass, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../src/helpers/HelperTypes"
+import { Armor, ArmorRarityDefenseScaling, Condition, ConditionCategory, DamageType, EffectSet, NGSClass, WeaponRarityAttackScaling, WeaponSeries, WeaponType } from "../src/helpers/HelperTypes"
 
 export const weaponsMock: WeaponSeries[] = [
   {
@@ -386,7 +386,8 @@ export const weaponTypesMock: WeaponType[] = [
       {
         "id": "88"
       }
-    ]
+    ],
+    damage_type: DamageType.melee
   },
 ]
 
@@ -720,3 +721,203 @@ export const conditionMock: Condition = {
     }
   ]
 }
+
+export const armorMock: Armor[] = [{
+  "id": "1",
+  "name": "Primm Armor",
+  "iname": {
+    "ja": "プリムアーマ"
+  },
+  "base_defense": 8,
+  "armor_rarity_defense_scaling": {
+    "id": "1"
+  },
+  "stats": {
+    "hp": 10,
+    "melee_potency": null,
+    "technique_potency": null,
+    "ranged_potency": null,
+    "potency_floor": null,
+    "pp": null,
+    "damage_reduction": null,
+    "physical_down_resist": null,
+    "poison_resist": null,
+    "panic_resist": null,
+    "blind_resist": null,
+    "shock_resist": null,
+    "freeze_resist": null,
+    "burn_resist": null,
+    "pp_cost_down": null,
+    "pp_natural_regen": null,
+    "pp_active_regen": null,
+    "critical_chance": null,
+    "critical_damage": null
+  }
+}]
+
+export const armorRarityScalingMock: ArmorRarityDefenseScaling[] = [{
+  "id": "1",
+  "rarity": 1,
+  "defense": [
+    {
+      "level": 1,
+      "value": 1
+    },
+    {
+      "level": 2,
+      "value": 2
+    },
+    {
+      "level": 3,
+      "value": 3
+    },
+    {
+      "level": 4,
+      "value": 4
+    },
+    {
+      "level": 5,
+      "value": 5
+    },
+    {
+      "level": 6,
+      "value": 6
+    },
+    {
+      "level": 7,
+      "value": 7
+    },
+    {
+      "level": 8,
+      "value": 8
+    },
+    {
+      "level": 9,
+      "value": 9
+    },
+    {
+      "level": 10,
+      "value": 10
+    },
+    {
+      "level": 11,
+      "value": 11
+    },
+    {
+      "level": 12,
+      "value": 12
+    },
+    {
+      "level": 13,
+      "value": 13
+    },
+    {
+      "level": 14,
+      "value": 14
+    },
+    {
+      "level": 15,
+      "value": 15
+    },
+    {
+      "level": 16,
+      "value": 16
+    },
+    {
+      "level": 17,
+      "value": 17
+    },
+    {
+      "level": 18,
+      "value": 18
+    },
+    {
+      "level": 19,
+      "value": 19
+    },
+    {
+      "level": 20,
+      "value": 20
+    },
+    {
+      "level": 21,
+      "value": 21
+    },
+    {
+      "level": 22,
+      "value": 22
+    },
+    {
+      "level": 23,
+      "value": 23
+    },
+    {
+      "level": 24,
+      "value": 24
+    },
+    {
+      "level": 25,
+      "value": 25
+    },
+    {
+      "level": 26,
+      "value": 26
+    },
+    {
+      "level": 27,
+      "value": 27
+    },
+    {
+      "level": 28,
+      "value": 28
+    },
+    {
+      "level": 29,
+      "value": 29
+    },
+    {
+      "level": 30,
+      "value": 30
+    },
+    {
+      "level": 31,
+      "value": 31
+    },
+    {
+      "level": 32,
+      "value": 32
+    },
+    {
+      "level": 33,
+      "value": 33
+    },
+    {
+      "level": 34,
+      "value": 34
+    },
+    {
+      "level": 35,
+      "value": 35
+    },
+    {
+      "level": 36,
+      "value": 36
+    },
+    {
+      "level": 37,
+      "value": 37
+    },
+    {
+      "level": 38,
+      "value": 38
+    },
+    {
+      "level": 39,
+      "value": 39
+    },
+    {
+      "level": 40,
+      "value": 40
+    }
+  ]
+}]

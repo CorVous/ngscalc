@@ -127,6 +127,7 @@ export const getStaticProps: GetStaticProps = async (props: any) => {
           }
           weapon_rarity_attack_scaling {
             id
+            rarity
           }
         }
 
@@ -164,6 +165,48 @@ export const getStaticProps: GetStaticProps = async (props: any) => {
           id
           rarity
           attack {
+            level
+            value
+          }
+        }
+        
+        armors {
+          id
+          name
+          iname {
+            ja
+          }
+          base_defense
+          armor_rarity_defense_scaling {
+            id
+            rarity
+          }
+          stats {
+            hp
+            melee_potency
+            technique_potency
+            ranged_potency
+            potency_floor
+            pp
+            damage_reduction
+            physical_down_resist
+            poison_resist
+            panic_resist
+            blind_resist
+            shock_resist
+            freeze_resist
+            burn_resist
+            pp_cost_down
+            pp_natural_regen
+            pp_active_regen
+            critical_chance
+            critical_damage
+          }
+        }
+        armorRarityDefenseScalings {
+          id
+          rarity
+          defense {
             level
             value
           }
